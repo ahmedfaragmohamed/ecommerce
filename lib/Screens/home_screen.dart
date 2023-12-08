@@ -1,141 +1,17 @@
 import 'package:ecommerce/Items/category_item.dart';
-import 'package:ecommerce/Items/favorite_product_item.dart';
 import 'package:ecommerce/Screens/favorite_product_screen.dart';
 import 'package:ecommerce/repository/category_repository.dart';
-import 'package:ecommerce/repository/favorite_repository.dart';
 import 'package:ecommerce/repository/home_models.dart';
 import 'package:ecommerce/repository/home_repository.dart';
 import 'package:ecommerce/repository/models_category.dart';
-import 'package:ecommerce/repository/models_favorite_prudact.dart';
+import 'package:ecommerce/repository/product_models.dart';
+import 'package:ecommerce/repository/product_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../Items/falsh_sale_item.dart';
 
 class HomeScreen extends StatelessWidget {
-  int idTest = 1;
-
-  List imageCarouselSlider = [
-    "assets/images/ImageCarouselSlider/shose12.png",
-    "assets/images/ImageCarouselSlider/shose13.png",
-    "assets/images/ImageCarouselSlider/shose1.webp",
-    "assets/images/ImageCarouselSlider/shose2.webp",
-    "assets/images/ImageCarouselSlider/shose3.webp",
-    "assets/images/ImageCarouselSlider/shose4.png",
-    "assets/images/ImageCarouselSlider/shose5.jpg",
-    "assets/images/ImageCarouselSlider/shose6.webp",
-    "assets/images/ImageCarouselSlider/shose7.webp",
-    "assets/images/ImageCarouselSlider/shose8.webp",
-    "assets/images/ImageCarouselSlider/shose9.jpg",
-    "assets/images/ImageCarouselSlider/shose10.webp",
-    "assets/images/ImageCarouselSlider/shose11.webp"
-  ];
-  // List<DataCategoryItem> dataCategoryItem = [
-  //   DataCategoryItem(
-  //       image: "assets/images/CategoryItem/shert.png", name: "Man Shirt"),
-  //   DataCategoryItem(
-  //       image: "assets/images/CategoryItem/dress.png", name: "Dress"),
-  //   DataCategoryItem(
-  //       image: "assets/images/CategoryItem/man_work_equipment.png",
-  //       name: "Man Work Equipment"),
-  //   DataCategoryItem(
-  //       image: "assets/images/CategoryItem/woman_bag.png", name: "Woman Bag"),
-  //   DataCategoryItem(
-  //       image: "assets/images/CategoryItem/shert.png", name: "Man Shirt"),
-  //   DataCategoryItem(
-  //       image: "assets/images/CategoryItem/dress.png", name: "Dress"),
-  //   DataCategoryItem(
-  //       image: "assets/images/CategoryItem/man_work_equipment.png",
-  //       name: "Man Work Equipment"),
-  //   DataCategoryItem(
-  //       image: "assets/images/CategoryItem/woman_bag.png", name: "Woman Bag"),
-  // ];
-  // List<DataFlashSaleItem> dataFlashSaleItem = [
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/1.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/2.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/3.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/4.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/5.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/6.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/7.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/8.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/1.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/2.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/3.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/4.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/5.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/6.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/7.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/8.png", name: "Man Shirt"),
-  // ];
-  // List<DataFlashSaleItem> dataMegaSaleItem = [
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/5.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/6.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/7.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/8.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/1.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/2.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/3.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/4.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/1.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/2.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/3.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/4.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/5.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/6.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/7.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/8.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/1.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/2.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/3.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/4.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/5.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/6.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/7.png", name: "Man Shirt"),
-  //   DataFlashSaleItem(
-  //       image: "assets/images/FlashSale/8.png", name: "Man Shirt"),
-  // ];
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -334,22 +210,22 @@ class HomeScreen extends StatelessWidget {
               child: SizedBox(
                 height: 240,
                 child: FutureBuilder(
-                  future: FavoriteRepository().getFavoriteProduct(idTest),
+                  future: HomeRepository().getHomeData(),
                   builder: (BuildContext context,
-                      AsyncSnapshot<FavoriteProductResponse> snapshot) {
+                      AsyncSnapshot<HomeResponse> snapshot) {
                     if (snapshot.hasData) {
-                      final FavoriteProductResponse product = snapshot.data!;
+                      final HomeResponse product = snapshot.data!;
                       return ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: product.data.data.length,
+                        itemCount: product.data.products.length,
                         itemBuilder: (context, index) {
                           return FlashSaleItem(
-                            description: product.data.data[index].description,
-                            discount: product.data.data[index].discount,
-                            name: product.data.data[index].name,
-                            old_price: product.data.data[index].oldPrice,
-                            price: product.data.data[index].price,
-                            image: product.data.data[index].image,
+                            description: product.data.products[index].description,
+                            discount: product.data.products[index].discount,
+                            name: product.data.products[index].name,
+                            old_price: product.data.products[index].oldPrice,
+                            price: product.data.products[index].price,
+                            image: product.data.products[index].image,
                           );
                         },
                       );
@@ -392,22 +268,22 @@ class HomeScreen extends StatelessWidget {
               child: SizedBox(
                 height: 240,
                 child: FutureBuilder(
-                  future: FavoriteRepository().getFavoriteProduct(idTest),
+                  future: HomeRepository().getHomeData(),
                   builder: (BuildContext context,
-                      AsyncSnapshot<FavoriteProductResponse> snapshot) {
+                      AsyncSnapshot<HomeResponse> snapshot) {
                     if (snapshot.hasData) {
-                      final FavoriteProductResponse product = snapshot.data!;
+                      final HomeResponse product = snapshot.data!;
                       return ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: product.data.data.length,
+                        itemCount: product.data.products.length,
                         itemBuilder: (context, index) {
                           return FlashSaleItem(
-                            description: product.data.data[index].description,
-                            discount: product.data.data[index].discount,
-                            name: product.data.data[index].name,
-                            old_price: product.data.data[index].oldPrice,
-                            price: product.data.data[index].price,
-                            image: product.data.data[index].image,
+                            description: product.data.products[index].description,
+                            discount: product.data.products[index].discount,
+                            name: product.data.products[index].name,
+                            old_price: product.data.products[index].oldPrice,
+                            price: product.data.products[index].price,
+                            image: product.data.products[index].image,
                           );
                         },
                       );
@@ -423,37 +299,50 @@ class HomeScreen extends StatelessWidget {
             //slider
             Container(
               width: MediaQuery.of(context).size.width,
-              child: CarouselSlider.builder(
-                itemCount: imageCarouselSlider.length,
-                options: CarouselOptions(
-                    height: 230,
-                    autoPlay: true,
-                    enlargeCenterPage: true,
-                    viewportFraction: 1,
-                    autoPlayInterval: Duration(seconds: 1),
-                    enableInfiniteScroll: true),
-                itemBuilder:
-                    (BuildContext context, int itemIndex, int pageViewIndex) {
-                  return Container(
-                    margin: EdgeInsets.all(16),
-                    width: MediaQuery.of(context).size.width,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        imageCarouselSlider[itemIndex],
-                        fit: BoxFit.cover,
-                        width: MediaQuery.of(context).size.width,
-                      ),
-                    ),
-                  );
-                },
-              ),
+              child: FutureBuilder(
+                  future: HomeRepository().getHomeData(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<HomeResponse> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {}
+                    if (snapshot.hasData) {
+                      final HomeResponse banner = snapshot.data!;
+                      return CarouselSlider.builder(
+                        itemCount: banner.data.banners.length,
+                        options: CarouselOptions(
+                            height: 230,
+                            autoPlay: true,
+                            enlargeCenterPage: true, //animation
+
+                            viewportFraction: 1,
+                            autoPlayInterval: Duration(seconds: 3),
+                            enableInfiniteScroll: true),
+                        itemBuilder: (BuildContext context, int index,
+                            int pageViewIndex) {
+                          return Container(
+                            margin: EdgeInsets.all(16),
+                            width: MediaQuery.of(context).size.width,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(
+                                banner.data.banners[index].image,
+                                fit: BoxFit.cover,
+                                width: MediaQuery.of(context).size.width,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }
+                    return Center(
+                      child: Text("nothing"),
+                    );
+                  }),
             ),
             FutureBuilder(
-              future: FavoriteRepository().getFavoriteProduct(idTest),
+              future: ProductRepository().getProductData(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  final FavoriteProductResponse product = snapshot.data!;
+                  final ProductResponse product = snapshot.data!;
                   return GridView.builder(
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
